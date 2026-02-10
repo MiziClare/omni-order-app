@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.EmployeeMapper">
+
     <select id="pageQuery" resultType="com.sky.entity.Employee">
         select * from employee
         <where>
@@ -11,4 +12,18 @@
         </where>
         order by create_time desc
     </select>
+
+    <update id="update" parameterType="com.sky.entity.Employee">
+        update employee
+        <if test="name != null">set name = #{name}</if>
+        <if test="username != null">set username = #{username}</if>
+        <if test="password != null">set password = #{password}</if>
+        <if test="phone != null">set phone = #{phone}</if>
+        <if test="sex != null">set sex = #{sex}</if>
+        <if test="idNumber != null">set id_number = #{idNumber}</if>
+        <if test="status != null">set status = #{status}</if>
+        <if test="updateTime != null">set update_time = #{updateTime}</if>
+        <if test="updateUser != null">set update_user = #{updateUser}</if>
+        where id = #{id}
+    </update>
 </mapper>

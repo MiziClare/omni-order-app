@@ -97,9 +97,24 @@ public class EmployeeController {
      */
     @GetMapping("/page")
     @ApiOperation("employee 分页查询")
+    // 返回值 Result 包含 data，因此最好加上泛型
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
         log.info("员工分页查询，参数为：{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 启用/禁用 employee 账号
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用/禁用 employee 账号")
+    public Result startOrStop(@PathVariable Integer status, @RequestParam Long id) {
+        log.info("启用/禁用员工账号：{}, {}", status, id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
     }
 }
